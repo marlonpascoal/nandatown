@@ -26,6 +26,20 @@ The trace is byte identical across a 400x range of `catalog_size`.
 
 The last two rows are the point of the table. They are controls, one from each of the two blocks this exercise permits to be changed. Both move the trace. So the null result is a property of `catalog_size`, not a mistake in how I configured the run.
 
+## Seed invariance
+
+The result above is at `seed: 42`. Since the finding is that the knob has no
+consumer, it should hold at any seed, but it is cheap to check rather than argue.
+
+| seed | `catalog_size: 200` | `catalog_size: 2000` | identical |
+|---|---|---|---|
+| 7 | `c09e4544576b…` | `c09e4544576b…` | yes |
+| 1234 | `5b302c6bae6d…` | `5b302c6bae6d…` | yes |
+| 99991 | `13421447def7…` | `13421447def7…` | yes |
+
+The hashes differ across seeds, which is what makes the comparison meaningful:
+the seed does move the trace. `catalog_size` does not, at any of them.
+
 ## Investigation
 
 ```
